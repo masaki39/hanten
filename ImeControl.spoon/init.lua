@@ -12,6 +12,7 @@ obj.license = "Unlicense"
 obj.__index = obj
 obj.sources = nil    -- SpoonInstall-compatible config override
 obj.appRules = nil   -- SpoonInstall-compatible config override
+obj.defaultIME = nil -- SpoonInstall-compatible config override
 
 local logger = hs.logger.new('ImeControl', 'debug')
 
@@ -28,6 +29,7 @@ obj._defaultConfig = {
     },
 
     appRules = {},
+    defaultIME = nil,
 
     behavior = {
         retryInterval = 0.1,
@@ -396,6 +398,7 @@ function obj:start(userConfig)
     local effectiveConfig = {}
     if self.sources then effectiveConfig.sources = self.sources end
     if self.appRules then effectiveConfig.appRules = self.appRules end
+    if self.defaultIME then effectiveConfig.defaultIME = self.defaultIME end
     if userConfig then
         for k, v in pairs(userConfig) do
             effectiveConfig[k] = v
@@ -443,16 +446,16 @@ function obj:start(userConfig)
     STATE.appWatcher = hs.application.watcher.new(function(appName, eventType, appObject)
         if eventType == hs.application.watcher.activated then
             local bundleID = appObject:bundleID()
-            if bundleID and obj._defaultConfig.appRules[bundleID] then
-                local rule = obj._defaultConfig.appRules[bundleID]
-                local targetID = rule
+            local rule = bundleID and obj._defaultConfig.appRules[bundleID]
+            local targetRule = rule or obj._defaultConfig.defaultIME
 
-                if rule == "eng" then
+            if targetRule then
+                local targetID = targetRule
+                if targetRule == "eng" then
                     targetID = obj._defaultConfig.sources.eng
-                elseif rule == "jpn" then
+                elseif targetRule == "jpn" then
                     targetID = obj._defaultConfig.sources.jpn
                 end
-
                 logger:d(string.format("App focused: %s -> applying %s", bundleID, targetID))
                 applyIME(targetID)
             end

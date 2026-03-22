@@ -5,7 +5,8 @@ Robust IME (Input Method Editor) switching for [Hammerspoon](https://www.hammers
 ## ✨ Features
 
 - 🎯 **Reliable IME Switching**: JIS keycodes + macOS APIs for robust switching
-- 🔄 **App-Based Auto-Switch**: Auto-switch IME for specific applications via `appRules`
+- 🌐 **Default IME**: Set a global default IME that applies to all apps via `defaultIME`
+- 🔄 **App-Based Auto-Switch**: Per-app overrides via `appRules` (takes priority over `defaultIME`)
 - 💾 **System Recovery**: Monitors and restores IME state on wake/unlock
 - 🪟 **Focus Tracking**: Refreshes IME state when switching windows
 - ⚙️ **Customizable**: Timing adjustments, fallback mechanisms, optional alerts
@@ -29,8 +30,10 @@ spoon.ImeControl:start({
         eng = "com.apple.keylayout.ABC",            -- default
         jpn = "com.google.inputmethod.Japanese.base" -- default
     },
+    defaultIME = "eng",  -- always switch to English when changing apps (optional)
     appRules = {
-        -- ["com.apple.Terminal"] = "eng",
+        -- ["com.apple.Terminal"] = "eng",  -- overrides defaultIME for specific apps
+        -- ["com.some.jpnapp"]    = "jpn",
     }
 }):bindHotkeys({
     toggle = { {"shift"}, "f12" },
@@ -59,6 +62,7 @@ spoon.SpoonInstall:andUse("ImeControl", {
             eng = "com.apple.keylayout.ABC",            -- default
             jpn = "com.google.inputmethod.Japanese.base" -- default
         },
+        defaultIME = "eng",  -- optional
         appRules = {
             -- ["com.apple.Terminal"] = "eng",
         }
