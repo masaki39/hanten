@@ -6,7 +6,7 @@
 
 local obj = {}
 obj.name = "Hanten"
-obj.version = "1.0.5"
+obj.version = "1.0.6"
 obj.author = "masaki39"
 obj.license = "Unlicense"
 obj.__index = obj
