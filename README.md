@@ -1,4 +1,4 @@
-# ImeControl.spoon
+# Hanten.spoon
 
 Robust IME (Input Method Editor) switching for [Hammerspoon](https://www.hammerspoon.org/). Switch between English and CJK input methods reliably with app-based auto-switching and system recovery.
 
@@ -20,11 +20,11 @@ Install [Hammerspoon](https://www.hammerspoon.org/) first if you haven't:
 brew install --cask hammerspoon
 ```
 
-Download [ImeControl.spoon.zip](https://github.com/masaki39/hammerspoon-ime-control/raw/main/Spoons/ImeControl.spoon.zip), open it to install, and add to `~/.hammerspoon/init.lua`:
+Download [Hanten.spoon.zip](https://github.com/masaki39/hanten/raw/main/Spoons/Hanten.spoon.zip), open it to install, and add to `~/.hammerspoon/init.lua`:
 
 ```lua
-hs.loadSpoon("ImeControl")
-spoon.ImeControl:start({
+hs.loadSpoon("Hanten")
+spoon.Hanten:start({
     -- All settings optional; defaults shown
     sources = {
         eng = "com.apple.keylayout.ABC",            -- default
@@ -50,13 +50,13 @@ Add to `~/.hammerspoon/init.lua`:
 
 ```lua
 hs.loadSpoon("SpoonInstall")
-spoon.SpoonInstall.repos.imecontrol = {
-    url = "https://github.com/masaki39/hammerspoon-ime-control",
-    desc = "ImeControl Spoon repository",
+spoon.SpoonInstall.repos.hanten = {
+    url = "https://github.com/masaki39/hanten",
+    desc = "Hanten Spoon repository",
     branch = "main",
 }
-spoon.SpoonInstall:andUse("ImeControl", {
-    repo = "imecontrol",
+spoon.SpoonInstall:andUse("Hanten", {
+    repo = "hanten",
     config = {
         sources = {
             eng = "com.apple.keylayout.ABC",            -- default
@@ -76,6 +76,49 @@ spoon.SpoonInstall:andUse("ImeControl", {
 ```
 
 </details>
+
+## ⚙️ Additional Settings
+
+All `behavior` options can be passed inside the `start()` config:
+
+```lua
+spoon.Hanten:start({
+    behavior = {
+        -- Alert shown when toggling IME manually
+        showAlert = true,
+        alertDuration = 0.5,
+
+        -- Enable/disable inputSourceChanged watcher
+        useSourceChangedWatcher = true,
+
+        -- Fallback: press a shortcut repeatedly until IME switches
+        useShortcutFallback = true,
+        sourceSwitchShortcut = {
+            mods = {"ctrl"},
+            key  = "space",
+            delayUS = 50000,
+            interval = 0.1,
+            maxPresses = 10
+        },
+
+        -- Workaround for CJK input method bounce issue
+        useCjkBounce = false,
+
+        -- Workaround for Chromium-based browsers (Chrome, Edge, Brave, etc.)
+        useChromiumNudge = false,
+
+        -- Retry settings when IME switch fails
+        retryInterval = 0.1,
+        retryCount = 5,
+
+        -- Timing adjustments (advanced)
+        applyDelay = 0.05,
+        alertDelay = 0.02,
+        keyTapDelay = 0.005,
+        justAppliedThreshold = 1.0
+    }
+})
+```
 
 ## 🔍 Finding App Bundle IDs
 

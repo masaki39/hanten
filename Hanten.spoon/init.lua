@@ -1,11 +1,11 @@
 -- =============================================================================
--- ImeControl Spoon for Hammerspoon
+-- Hanten Spoon for Hammerspoon
 -- Robust IME (Input Method Editor) switching for macOS
 -- License: Unlicense (Public Domain)
 -- =============================================================================
 
 local obj = {}
-obj.name = "ImeControl"
+obj.name = "Hanten"
 obj.version = "1.0.5"
 obj.author = "masaki39"
 obj.license = "Unlicense"
@@ -14,7 +14,7 @@ obj.sources = nil    -- SpoonInstall-compatible config override
 obj.appRules = nil   -- SpoonInstall-compatible config override
 obj.defaultIME = nil -- SpoonInstall-compatible config override
 
-local logger = hs.logger.new('ImeControl', 'debug')
+local logger = hs.logger.new('Hanten', 'debug')
 
 local KEYCODES = {
     eisu = 102,

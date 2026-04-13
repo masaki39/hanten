@@ -2,8 +2,8 @@
 set -euo pipefail
 
 BUMP="${1:-patch}"
-INIT_LUA="ImeControl.spoon/init.lua"
-ZIP_PATH="Spoons/ImeControl.spoon.zip"
+INIT_LUA="Hanten.spoon/init.lua"
+ZIP_PATH="Spoons/Hanten.spoon.zip"
 DOCS_JSON="docs/docs.json"
 
 # Read current version
@@ -43,7 +43,7 @@ sed -i "" "s/\"version\": \"[^\"]*\"/\"version\": \"$NEW\"/" "$DOCS_JSON"
 # Regenerate zip
 mkdir -p Spoons
 rm -f "$ZIP_PATH"
-zip -r "$ZIP_PATH" ImeControl.spoon/ > /dev/null
+zip -r "$ZIP_PATH" Hanten.spoon/ > /dev/null
 
 # Commit & tag
 git add "$INIT_LUA" "$ZIP_PATH" "$DOCS_JSON"
