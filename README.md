@@ -1,4 +1,4 @@
-# Hanten.spoon
+# Hanten(反転).spoon
 
 Robust IME (Input Method Editor) switching for [Hammerspoon](https://www.hammerspoon.org/). Switch between English and CJK input methods reliably with app-based auto-switching and system recovery.
 
