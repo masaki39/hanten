@@ -14,7 +14,7 @@ obj.sources = nil    -- SpoonInstall-compatible config override
 obj.appRules = nil   -- SpoonInstall-compatible config override
 obj.defaultIME = nil -- SpoonInstall-compatible config override
 
-local logger = hs.logger.new('Hanten', 'debug')
+local logger = hs.logger.new('Hanten', 'info')
 
 local KEYCODES = {
     eisu = 102,
